@@ -1,5 +1,6 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, Search, ShoppingBag, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { cn } from '../../lib/cn'
 
@@ -11,10 +12,28 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 lg:h-[4.5rem] lg:px-8">
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b bg-paper/95 backdrop-blur transition-[border-color] duration-500',
+        scrolled ? 'border-line' : 'border-transparent',
+      )}
+    >
+      <div
+        className={cn(
+          'mx-auto flex max-w-6xl items-center justify-between px-6 transition-[height] duration-300 lg:px-8',
+          scrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-[4.5rem]',
+        )}
+      >
         <Link
           to="/"
           className="font-serif text-[1.35rem] tracking-[0.28em] text-ink"
@@ -28,14 +47,19 @@ export default function Navbar() {
             <NavLink
               key={link.to}
               to={link.to}
-              className={({ isActive }) =>
-                cn(
-                  'text-[11px] font-medium tracking-[0.22em] uppercase text-stone transition-colors duration-300 hover:text-ink',
-                  isActive && 'text-ink',
-                )
-              }
+              className="group relative py-2 text-[11px] font-medium tracking-[0.22em] text-stone uppercase transition-colors duration-300 hover:text-ink"
             >
-              {link.label}
+              {({ isActive }) => (
+                <>
+                  <span className={isActive ? 'text-ink' : ''}>{link.label}</span>
+                  <span
+                    className={cn(
+                      'absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-300 ease-[var(--ease-editorial)] group-hover:scale-x-100',
+                      isActive && 'scale-x-100',
+                    )}
+                  />
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -68,32 +92,38 @@ export default function Navbar() {
         </div>
       </div>
 
-      {open ? (
-        <nav
-          id="mobile-nav"
-          className="border-t border-line px-6 py-6 md:hidden"
-          aria-label="Mobile"
-        >
-          <ul className="flex flex-col gap-5">
-            {links.map((link) => (
-              <li key={link.to}>
-                <NavLink
-                  to={link.to}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      'text-[12px] font-medium tracking-[0.22em] uppercase text-stone',
-                      isActive && 'text-ink',
-                    )
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      ) : null}
+      <AnimatePresence>
+        {open ? (
+          <motion.nav
+            id="mobile-nav"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-line md:hidden"
+            aria-label="Mobile"
+          >
+            <ul className="flex flex-col gap-5 px-6 py-6">
+              {links.map((link) => (
+                <li key={link.to}>
+                  <NavLink
+                    to={link.to}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      cn(
+                        'text-[12px] font-medium tracking-[0.22em] uppercase text-stone',
+                        isActive && 'text-ink',
+                      )
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </motion.nav>
+        ) : null}
+      </AnimatePresence>
     </header>
   )
 }

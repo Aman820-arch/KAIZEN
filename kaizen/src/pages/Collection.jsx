@@ -1,32 +1,68 @@
-import { Link } from 'react-router-dom'
-import { products } from '../data/products'
-import { formatPrice } from '../lib/format'
-import PagePlaceholder from '../components/ui/PagePlaceholder'
+import { useMemo, useState } from 'react'
+import ProductCard from '../components/ui/ProductCard'
+import Reveal from '../components/ui/Reveal'
+import { cn } from '../lib/cn'
+import { collections, products } from '../data/products'
 
 export default function Collection() {
+  const [active, setActive] = useState('all')
+
+  const filtered = useMemo(() => {
+    if (active === 'all') return products
+    return products.filter((product) => product.collection === active)
+  }, [active])
+
   return (
-    <PagePlaceholder
-      eyebrow="Timepieces"
-      title="A small, considered collection."
-    >
-      <p>Catalog presentation will be built next. The mock catalog is already wired.</p>
-      <ul className="mt-12 flex flex-col gap-4 text-ink">
-        {products.map((product) => (
-          <li key={product.id}>
-            <Link
-              to={`/watches/${product.slug}`}
-              className="group flex flex-wrap items-baseline justify-between gap-4 border-b border-line py-4"
+    <>
+      <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-24">
+        <p className="plate-caption">Timepieces</p>
+        <h1 className="text-h1 mt-4 max-w-xl text-ink">
+          A small, considered collection.
+        </h1>
+        <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-stone">
+          Four references across three lines. Each is kept in production
+          until a genuine improvement is ready to replace it — not on a
+          seasonal calendar.
+        </p>
+
+        <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-y border-line py-4">
+          <button
+            type="button"
+            onClick={() => setActive('all')}
+            className={cn(
+              'text-[12px] font-medium tracking-[0.16em] uppercase transition-colors duration-300',
+              active === 'all' ? 'text-ink' : 'text-stone hover:text-ink',
+            )}
+          >
+            All references
+          </button>
+          {collections.map((collection) => (
+            <button
+              key={collection.id}
+              type="button"
+              onClick={() => setActive(collection.slug)}
+              className={cn(
+                'text-[12px] font-medium tracking-[0.16em] uppercase transition-colors duration-300',
+                active === collection.slug ? 'text-ink' : 'text-stone hover:text-ink',
+              )}
             >
-              <span className="font-serif text-2xl group-hover:text-sage">
-                {product.name}
-              </span>
-              <span className="text-[12px] tracking-[0.16em] uppercase text-stone">
-                {formatPrice(product.price, product.currency)}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </PagePlaceholder>
+              {collection.name}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <Reveal as="section" className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
+        {filtered.length ? (
+          <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-stone">No references in this line yet.</p>
+        )}
+      </Reveal>
+    </>
   )
 }

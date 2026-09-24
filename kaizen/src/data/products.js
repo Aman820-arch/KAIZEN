@@ -41,6 +41,7 @@ export const products = [
       'A 40mm dress-sport piece with a sunburst dial and a thin, hand-finished case.',
     story:
       'Horizon is the first expression of KAIZEN: proportion, restraint, and a movement chosen for reliability rather than spectacle.',
+    caliber: 'KZ-A1',
     specs: {
       movement: 'Automatic, 38-hour power reserve',
       case: '316L stainless steel',
@@ -50,6 +51,7 @@ export const products = [
       crystal: 'Sapphire, anti-reflective',
       strap: 'Calf leather, steel pin buckle',
     },
+    strapOptions: ['Chestnut calf', 'Charcoal calf', 'Steel bracelet'],
     images: {
       hero: '/images/watches/horizon-40.jpg',
       gallery: [
@@ -73,6 +75,7 @@ export const products = [
       'A column-wheel chronograph with a silvered opaline dial and subdials kept deliberately quiet.',
     story:
       'The Atelier line treats complications as craft, not display. Timing functions sit inside a case that still reads as a wristwatch.',
+    caliber: 'KZ-C2',
     specs: {
       movement: 'Automatic chronograph, 48-hour power reserve',
       case: '316L stainless steel',
@@ -82,6 +85,7 @@ export const products = [
       crystal: 'Sapphire, anti-reflective',
       strap: 'Alligator leather, steel folding clasp',
     },
+    strapOptions: ['Black alligator', 'Chestnut alligator', 'Steel bracelet'],
     images: {
       hero: '/images/watches/atelier-chronograph.jpg',
       gallery: ['/images/watches/atelier-chronograph.jpg'],
@@ -102,6 +106,7 @@ export const products = [
       'A moon-phase watch with a dark lacquered dial and a discreet date at six.',
     story:
       'Nocturne is built for dim rooms and late hours. The moon disc is the only ornament; everything else recedes.',
+    caliber: 'KZ-M3',
     specs: {
       movement: 'Automatic moon phase, 42-hour power reserve',
       case: '316L stainless steel',
@@ -111,6 +116,7 @@ export const products = [
       crystal: 'Sapphire, anti-reflective',
       strap: 'Suede leather, steel pin buckle',
     },
+    strapOptions: ['Midnight suede', 'Steel bracelet'],
     images: {
       hero: '/images/watches/nocturne-moon.jpg',
       gallery: ['/images/watches/nocturne-moon.jpg'],
@@ -131,6 +137,7 @@ export const products = [
       'The smaller Horizon: the same architecture, refined for a lighter presence on the wrist.',
     story:
       'A companion to the 40mm, sharing the same movement family and finishing, scaled for balance rather than fashion.',
+    caliber: 'KZ-A1',
     specs: {
       movement: 'Automatic, 38-hour power reserve',
       case: '316L stainless steel',
@@ -140,6 +147,7 @@ export const products = [
       crystal: 'Sapphire, anti-reflective',
       strap: 'Calf leather, steel pin buckle',
     },
+    strapOptions: ['Chestnut calf', 'Charcoal calf', 'Steel bracelet'],
     images: {
       hero: '/images/watches/horizon-36.jpg',
       gallery: ['/images/watches/horizon-36.jpg'],
