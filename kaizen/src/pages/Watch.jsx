@@ -60,7 +60,7 @@ export default function Watch() {
               diameter={product.specs.diameter?.replace('mm', '')}
               thickness={product.specs.thickness?.replace('mm', '')}
               caption={`Fig. ${view === 'face' ? '01' : '02'} — ${product.name}, ${view === 'face' ? 'dial' : 'case profile'}`}
-              className="aspect-[4/5] w-full"
+              className="aspect-4/5 w-full"
             />
             <div className="mt-4 flex gap-3">
               {VIEWS.map((v) => (

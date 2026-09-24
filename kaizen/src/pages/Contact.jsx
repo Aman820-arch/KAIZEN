@@ -26,7 +26,7 @@ export default function Contact() {
         </p>
 
         <div className="mt-12 max-w-xs">
-          <WatchPlate variant="profile" frame={false} className="aspect-[2/1]" />
+          <WatchPlate variant="profile" frame={false} className="aspect-2/1" />
         </div>
 
         <dl className="mt-10 space-y-6 border-t border-line pt-8">
