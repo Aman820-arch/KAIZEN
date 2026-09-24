@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Button from '../components/ui/Button'
+import CountUp from '../components/ui/CountUp'
 import Reveal from '../components/ui/Reveal'
 import WatchPlate from '../components/ui/WatchPlate'
 import { craftSteps, founderQuote, philosophy } from '../data/content'
@@ -30,7 +31,9 @@ export default function Maison() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 sm:grid-cols-4 lg:px-8">
           {stats.map((stat) => (
             <div key={stat.label}>
-              <p className="font-serif text-3xl text-ink">{stat.value}</p>
+              <p className="font-serif text-3xl text-ink">
+                <CountUp value={stat.value} />
+              </p>
               <p className="mt-1 text-[12px] tracking-[0.06em] text-stone">{stat.label}</p>
             </div>
           ))}

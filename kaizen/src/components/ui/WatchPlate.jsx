@@ -1,4 +1,5 @@
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { cn } from '../../lib/cn'
 
 /**
@@ -12,6 +13,40 @@ import { cn } from '../../lib/cn'
  * with an <img> inside the same aspect-ratio container. No layout changes
  * needed elsewhere.
  */
+
+// 10:08 is the trade's own convention for a balanced, legible face — used
+// whenever a plate isn't showing the real time (or `live` is off).
+const DEMO_HOUR_ANGLE = ((10 % 12) / 12) * Math.PI * 2 - Math.PI / 2 + (8 / 60) * (Math.PI / 6)
+const DEMO_MINUTE_ANGLE = (8 / 60) * Math.PI * 2 - Math.PI / 2
+
+function angleFromDate(date) {
+  const hours = date.getHours() % 12
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+  return {
+    hourAngle: (hours / 12) * Math.PI * 2 - Math.PI / 2 + (minutes / 60) * (Math.PI / 6),
+    minuteAngle: (minutes / 60) * Math.PI * 2 - Math.PI / 2 + (seconds / 60) * (Math.PI / 30),
+    secondAngle: (seconds / 60) * Math.PI * 2 - Math.PI / 2,
+  }
+}
+
+// Ticks once a second rather than animating continuously — a real
+// mechanical seconds hand steps, it doesn't glide. That keeps this a
+// discrete, restrained detail rather than a constantly-moving element,
+// and it switches itself off under prefers-reduced-motion.
+function useLiveAngles(enabled) {
+  const [angles, setAngles] = useState(() =>
+    enabled ? angleFromDate(new Date()) : { hourAngle: DEMO_HOUR_ANGLE, minuteAngle: DEMO_MINUTE_ANGLE },
+  )
+
+  useEffect(() => {
+    if (!enabled) return undefined
+    const id = setInterval(() => setAngles(angleFromDate(new Date())), 1000)
+    return () => clearInterval(id)
+  }, [enabled])
+
+  return angles
+}
 
 const TICKS = Array.from({ length: 60 }, (_, i) => i)
 
@@ -45,7 +80,7 @@ function DialTicks({ cx, cy, r, stroke = 'var(--color-ink)' }) {
   )
 }
 
-function Hands({ cx, cy, hourAngle, minuteAngle, accent = 'var(--color-sage)' }) {
+function Hands({ cx, cy, hourAngle, minuteAngle, secondAngle, accent = 'var(--color-sage)' }) {
   const hourLen = 62
   const minLen = 92
   const hx = cx + Math.cos(hourAngle) * hourLen
@@ -65,19 +100,26 @@ function Hands({ cx, cy, hourAngle, minuteAngle, accent = 'var(--color-sage)' })
         stroke={accent}
         strokeWidth={1.6}
       />
+      {typeof secondAngle === 'number' ? (
+        <line
+          x1={cx + Math.cos(secondAngle + Math.PI) * 14}
+          y1={cy + Math.sin(secondAngle + Math.PI) * 14}
+          x2={cx + Math.cos(secondAngle) * 98}
+          y2={cy + Math.sin(secondAngle) * 98}
+          stroke={accent}
+          strokeWidth={0.9}
+        />
+      ) : null}
       <circle cx={cx} cy={cy} r={5} fill="var(--color-ink)" />
       <circle cx={cx} cy={cy} r={1.6} fill={accent} />
     </g>
   )
 }
 
-function HorizonDial({ id }) {
+function HorizonDial({ id, hourAngle, minuteAngle, secondAngle }) {
   const cx = 200
   const cy = 200
   const r = 150
-  // 10:08, the trade's own convention for a balanced, legible face
-  const hourAngle = ((10 % 12) / 12) * Math.PI * 2 - Math.PI / 2 + (8 / 60) * (Math.PI / 6)
-  const minuteAngle = (8 / 60) * Math.PI * 2 - Math.PI / 2
 
   return (
     <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-labelledby={id}>
@@ -110,17 +152,15 @@ function HorizonDial({ id }) {
       <text x={cx} y={cy - 62} textAnchor="middle" fontFamily="var(--font-serif)" fontSize="15" letterSpacing="0.16em" fill="var(--color-stone)">
         KAIZEN
       </text>
-      <Hands cx={cx} cy={cy} hourAngle={hourAngle} minuteAngle={minuteAngle} />
+      <Hands cx={cx} cy={cy} hourAngle={hourAngle} minuteAngle={minuteAngle} secondAngle={secondAngle} />
     </svg>
   )
 }
 
-function AtelierDial({ id }) {
+function AtelierDial({ id, hourAngle, minuteAngle, secondAngle }) {
   const cx = 200
   const cy = 200
   const r = 150
-  const hourAngle = ((10 % 12) / 12) * Math.PI * 2 - Math.PI / 2 + (8 / 60) * (Math.PI / 6)
-  const minuteAngle = (8 / 60) * Math.PI * 2 - Math.PI / 2
 
   return (
     <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-labelledby={id}>
@@ -151,17 +191,15 @@ function AtelierDial({ id }) {
           <line x1={pos.x} y1={pos.y} x2={pos.x + 18} y2={pos.y - 8} stroke="var(--color-sage)" strokeWidth={1.4} strokeLinecap="round" />
         </g>
       ))}
-      <Hands cx={cx} cy={cy} hourAngle={hourAngle} minuteAngle={minuteAngle} />
+      <Hands cx={cx} cy={cy} hourAngle={hourAngle} minuteAngle={minuteAngle} secondAngle={secondAngle} />
     </svg>
   )
 }
 
-function NocturneDial({ id }) {
+function NocturneDial({ id, hourAngle, minuteAngle, secondAngle }) {
   const cx = 200
   const cy = 200
   const r = 150
-  const hourAngle = ((10 % 12) / 12) * Math.PI * 2 - Math.PI / 2 + (8 / 60) * (Math.PI / 6)
-  const minuteAngle = (8 / 60) * Math.PI * 2 - Math.PI / 2
 
   return (
     <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-labelledby={id}>
@@ -180,6 +218,16 @@ function NocturneDial({ id }) {
       <g strokeLinecap="round">
         <line x1={cx} y1={cy} x2={cx + Math.cos(hourAngle) * 62} y2={cy + Math.sin(hourAngle) * 62} stroke="var(--color-ivory)" strokeWidth={4} />
         <line x1={cx} y1={cy} x2={cx + Math.cos(minuteAngle) * 92} y2={cy + Math.sin(minuteAngle) * 92} stroke="var(--color-ivory)" strokeWidth={2.6} />
+        {typeof secondAngle === 'number' ? (
+          <line
+            x1={cx + Math.cos(secondAngle + Math.PI) * 14}
+            y1={cy + Math.sin(secondAngle + Math.PI) * 14}
+            x2={cx + Math.cos(secondAngle) * 98}
+            y2={cy + Math.sin(secondAngle) * 98}
+            stroke="var(--color-sage)"
+            strokeWidth={0.9}
+          />
+        ) : null}
         <circle cx={cx} cy={cy} r={5} fill="var(--color-ivory)" />
       </g>
     </svg>
@@ -281,6 +329,7 @@ export default function WatchPlate({
   className,
   frame = true,
   tone = 'light',
+  live = false,
   caption,
   diameter,
   thickness,
@@ -290,6 +339,9 @@ export default function WatchPlate({
   const reactId = useId()
   const id = `plate-${variant}-${reactId.replace(/[^a-zA-Z0-9]/g, '')}`
   const isDark = tone === 'dark'
+  const reduceMotion = useReducedMotion()
+  const hasHands = variant === 'horizon' || variant === 'atelier' || variant === 'nocturne'
+  const { hourAngle, minuteAngle, secondAngle } = useLiveAngles(live && hasHands && !reduceMotion)
 
   return (
     <div
@@ -301,7 +353,15 @@ export default function WatchPlate({
       )}
     >
       <div className="flex flex-1 items-center justify-center p-6">
-        <Illustration id={id} diameter={diameter} thickness={thickness} {...rest} />
+        <Illustration
+          id={id}
+          diameter={diameter}
+          thickness={thickness}
+          hourAngle={hourAngle}
+          minuteAngle={minuteAngle}
+          secondAngle={live && hasHands && !reduceMotion ? secondAngle : undefined}
+          {...rest}
+        />
       </div>
       {caption ? (
         <div

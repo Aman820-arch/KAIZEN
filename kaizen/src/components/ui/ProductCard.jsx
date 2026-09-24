@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { formatPrice } from '../../lib/format'
 import { cn } from '../../lib/cn'
+import TiltCard from './TiltCard'
 import WatchPlate from './WatchPlate'
 
 export default function ProductCard({ product, className }) {
@@ -9,7 +10,7 @@ export default function ProductCard({ product, className }) {
       to={`/watches/${product.slug}`}
       className={cn('group block', className)}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-ivory">
+      <TiltCard maxTilt={4} className="relative aspect-[4/5] overflow-hidden bg-ivory">
         <WatchPlate
           variant={product.collection}
           frame={false}
@@ -21,7 +22,7 @@ export default function ProductCard({ product, className }) {
             {product.limited ? 'Limited' : 'New'}
           </span>
         ) : null}
-      </div>
+      </TiltCard>
       <div className="mt-4 flex items-baseline justify-between gap-4">
         <div>
           <h3 className="font-serif text-xl text-ink">{product.name}</h3>

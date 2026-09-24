@@ -48,6 +48,7 @@ export default function Home() {
         <div className="relative">
           <WatchPlate
             variant="horizon"
+            live
             caption="Fig. 01 — Horizon 40, Ref. KZ.HZ.40.01"
             className="aspect-[4/5] w-full"
           />

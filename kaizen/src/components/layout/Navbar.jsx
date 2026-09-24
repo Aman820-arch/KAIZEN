@@ -31,7 +31,7 @@ export default function Navbar() {
       <div
         className={cn(
           'mx-auto flex max-w-6xl items-center justify-between px-6 transition-[height] duration-300 lg:px-8',
-          scrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-[4.5rem]',
+          scrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-18',
         )}
       >
         <Link
@@ -54,7 +54,7 @@ export default function Navbar() {
                   <span className={isActive ? 'text-ink' : ''}>{link.label}</span>
                   <span
                     className={cn(
-                      'absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-300 ease-[var(--ease-editorial)] group-hover:scale-x-100',
+                      'absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-ink transition-transform duration-300 ease-editorial group-hover:scale-x-100',
                       isActive && 'scale-x-100',
                     )}
                   />

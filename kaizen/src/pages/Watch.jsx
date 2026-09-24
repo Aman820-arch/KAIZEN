@@ -56,6 +56,7 @@ export default function Watch() {
           <div className="lg:sticky lg:top-24 lg:self-start">
             <WatchPlate
               variant={view === 'face' ? product.collection : 'profile'}
+              live={view === 'face'}
               diameter={product.specs.diameter?.replace('mm', '')}
               thickness={product.specs.thickness?.replace('mm', '')}
               caption={`Fig. ${view === 'face' ? '01' : '02'} — ${product.name}, ${view === 'face' ? 'dial' : 'case profile'}`}
