@@ -1,3 +1,4 @@
+import PageGlow from '../components/ui/PageGlow'
 import { useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
@@ -43,7 +44,7 @@ export default function Watch() {
   }
 
   return (
-    <>
+    <PageGlow>
       <section className="mx-auto max-w-6xl px-6 pt-10 pb-24 lg:px-8 lg:pt-14 lg:pb-32">
         <nav className="text-[12px] text-stone" aria-label="Breadcrumb">
           <Link to="/collection" className="hover:text-ink">Collection</Link>
@@ -60,7 +61,7 @@ export default function Watch() {
               diameter={product.specs.diameter?.replace('mm', '')}
               thickness={product.specs.thickness?.replace('mm', '')}
               caption={`Fig. ${view === 'face' ? '01' : '02'} — ${product.name}, ${view === 'face' ? 'dial' : 'case profile'}`}
-              className="aspect-4/5 w-full"
+              className="aspect-[4/5] w-full"
             />
             <div className="mt-4 flex gap-3">
               {VIEWS.map((v) => (
@@ -167,6 +168,6 @@ export default function Watch() {
           </div>
         </Reveal>
       ) : null}
-    </>
+    </PageGlow>
   )
 }

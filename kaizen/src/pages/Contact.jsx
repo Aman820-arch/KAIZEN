@@ -1,5 +1,7 @@
+import PageGlow from '../components/ui/PageGlow'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import Eyebrow from '../components/ui/Eyebrow'
 import Button from '../components/ui/Button'
 import WatchPlate from '../components/ui/WatchPlate'
 
@@ -14,9 +16,10 @@ export default function Contact() {
   }
 
   return (
+    <PageGlow>
     <section className="mx-auto grid max-w-6xl gap-16 px-6 py-16 lg:grid-cols-[1fr_1.1fr] lg:gap-20 lg:px-8 lg:py-24">
       <div>
-        <p className="plate-caption">Enquiries</p>
+        <Eyebrow>Enquiries</Eyebrow>
         <h1 className="text-h1 mt-4 max-w-sm text-ink">
           Appointments and questions.
         </h1>
@@ -26,7 +29,7 @@ export default function Contact() {
         </p>
 
         <div className="mt-12 max-w-xs">
-          <WatchPlate variant="profile" frame={false} className="aspect-2/1" />
+          <WatchPlate variant="profile" frame={false} className="aspect-[2/1]" />
         </div>
 
         <dl className="mt-10 space-y-6 border-t border-line pt-8">
@@ -88,6 +91,7 @@ export default function Contact() {
         )}
       </div>
     </section>
+    </PageGlow>
   )
 }
 

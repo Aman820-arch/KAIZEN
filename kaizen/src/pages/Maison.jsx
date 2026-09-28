@@ -1,4 +1,8 @@
+import PageGlow from '../components/ui/PageGlow'
 import { Link } from 'react-router-dom'
+import IridescentBackdrop from '../components/ui/IridescentBackdrop'
+import GradientText from '../components/ui/GradientText'
+import Eyebrow from '../components/ui/Eyebrow'
 import Button from '../components/ui/Button'
 import CountUp from '../components/ui/CountUp'
 import Reveal from '../components/ui/Reveal'
@@ -14,9 +18,9 @@ const stats = [
 
 export default function Maison() {
   return (
-    <>
+    <PageGlow>
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-14 lg:px-8 lg:pt-24 lg:pb-20">
-        <p className="plate-caption">Maison</p>
+        <Eyebrow>Maison</Eyebrow>
         <h1 className="text-h1 mt-4 max-w-2xl text-ink">
           Continuous refinement, applied to a wristwatch.
         </h1>
@@ -44,8 +48,8 @@ export default function Maison() {
       <Reveal as="section" className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-32">
         <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <div>
-            <p className="plate-caption">Fig. 04 — Case, side profile</p>
-            <div className="mt-4 aspect-2/1">
+            <Eyebrow>Fig. 04 — Case, side profile</Eyebrow>
+            <div className="mt-4 aspect-[2/1]">
               <WatchPlate variant="profile" caption={null} />
             </div>
           </div>
@@ -72,7 +76,7 @@ export default function Maison() {
       {/* Craftsmanship — full process */}
       <section className="border-y border-line bg-ivory">
         <Reveal className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-32">
-          <p className="plate-caption">The process</p>
+          <Eyebrow>The process</Eyebrow>
           <h2 className="text-h1 mt-4 max-w-lg text-ink">Five stages, one watchmaker.</h2>
           <ol className="mt-14 grid gap-x-12 gap-y-12 divide-y divide-line border-t border-line sm:grid-cols-2 sm:divide-y-0 sm:border-t-0">
             {craftSteps.map((step) => (
@@ -91,7 +95,7 @@ export default function Maison() {
       {/* Founder quote */}
       <Reveal as="section" className="mx-auto max-w-4xl px-6 py-24 lg:py-32">
         <p className="text-h2 text-ink">“{founderQuote.quote}”</p>
-        <p className="mt-8 text-[13px] tracking-widest text-stone uppercase">
+        <p className="mt-8 text-[13px] tracking-[0.1em] text-stone uppercase">
           {founderQuote.name} — {founderQuote.role}
         </p>
       </Reveal>
@@ -99,7 +103,7 @@ export default function Maison() {
       {/* Values in practice */}
       <section className="border-t border-line bg-ivory">
         <Reveal className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-32">
-          <p className="plate-caption">In practice</p>
+          <Eyebrow>In practice</Eyebrow>
           <h2 className="text-h2 mt-4 max-w-lg text-ink">
             {philosophy.statement}
           </h2>
@@ -114,10 +118,11 @@ export default function Maison() {
         </Reveal>
       </section>
 
-      <Reveal as="section" className="bg-ink text-ivory">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-8 px-6 py-24 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-32">
+      <Reveal as="section" className="relative overflow-hidden text-ivory">
+        <IridescentBackdrop />
+        <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-8 px-6 py-24 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-32">
           <h2 className="text-h1 max-w-lg text-ivory">
-            Come see a reference before you decide.
+            <GradientText>Come see a reference before you decide.</GradientText>
           </h2>
           <Button
             as={Link}
@@ -129,6 +134,6 @@ export default function Maison() {
           </Button>
         </div>
       </Reveal>
-    </>
+    </PageGlow>
   )
 }

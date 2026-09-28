@@ -2,7 +2,7 @@ import { cn } from '../../lib/cn'
 
 const variants = {
   primary:
-    'bg-ink text-ivory hover:bg-sage',
+    'bg-flow text-ivory hover:brightness-110',
   outline:
     'border border-ink/20 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-ivory',
   ghost:
@@ -27,7 +27,7 @@ export default function Button({
     <Component
       type={Component === 'button' ? type ?? 'button' : type}
       className={cn(
-        'inline-flex items-center justify-center gap-2 font-sans font-medium tracking-[0.18em] uppercase transition-colors duration-300 ease-editorial disabled:pointer-events-none disabled:opacity-40',
+        'inline-flex items-center justify-center gap-2 font-sans font-medium tracking-[0.18em] uppercase transition-colors duration-300 ease-[var(--ease-editorial)] disabled:pointer-events-none disabled:opacity-40',
         variants[variant],
         sizes[size],
         className,

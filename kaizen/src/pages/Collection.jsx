@@ -1,6 +1,8 @@
+import PageGlow from '../components/ui/PageGlow'
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ProductCard from '../components/ui/ProductCard'
+import Eyebrow from '../components/ui/Eyebrow'
 import Reveal from '../components/ui/Reveal'
 import { cn } from '../lib/cn'
 import { collections, products } from '../data/products'
@@ -15,9 +17,9 @@ export default function Collection() {
   }, [active])
 
   return (
-    <>
+    <PageGlow>
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-24">
-        <p className="plate-caption">Timepieces</p>
+        <Eyebrow>Timepieces</Eyebrow>
         <h1 className="text-h1 mt-4 max-w-xl text-ink">
           A small, considered collection.
         </h1>
@@ -76,6 +78,6 @@ export default function Collection() {
           <p className="text-stone">No references in this line yet.</p>
         )}
       </Reveal>
-    </>
+    </PageGlow>
   )
 }

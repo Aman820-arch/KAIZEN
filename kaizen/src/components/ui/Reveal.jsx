@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion'
  * the section or section-heading level.
  */
 export default function Reveal({
-  as: Component = motion.div,
+  as = 'div',
   delay = 0,
   y = 18,
   className,
@@ -15,6 +15,11 @@ export default function Reveal({
   ...props
 }) {
   const reduceMotion = useReducedMotion()
+  // `motion` exposes every intrinsic tag dynamically (motion.section,
+  // motion.div, ...) — resolving the string here (rather than accepting
+  // a raw tag name as the rendered Component) is what makes the
+  // whileInView/initial props below actually take effect.
+  const Component = motion[as] ?? motion.div
 
   return (
     <Component
