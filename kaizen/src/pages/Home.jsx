@@ -56,7 +56,7 @@ export default function Home() {
               variant="horizon"
               live
               caption="Fig. 01 — Horizon 40, Ref. KZ.HZ.40.01"
-              className="aspect-[4/5] w-full"
+              className="aspect-4/5 w-full"
             />
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function Home() {
             <WatchPlate
               variant={spotlight.collection}
               caption={`Fig. 02 — ${spotlight.name}`}
-              className="aspect-[4/5] w-full lg:aspect-[3/4]"
+              className="aspect-4/5 w-full lg:aspect-3/4"
             />
             <div className="flex flex-col justify-center">
               <p className="plate-caption">{spotlight.reference}</p>
@@ -119,8 +119,8 @@ export default function Home() {
             <Link
               key={collection.id}
               to="/collection"
-              className={`group relative flex flex-col justify-end overflow-hidden bg-[#1e1a3a]/25 p-8 backdrop-blur-[2px] ${
-                index === 0 ? 'sm:col-span-2 aspect-[16/8]' : 'aspect-[4/3]'
+              className={`group relative flex flex-col justify-end overflow-hidden bg-ink/25 p-8 backdrop-blur-[2px] ${
+                index === 0 ? 'sm:col-span-2 aspect-16/8' : 'aspect-4/3'
               }`}
             >
               <div
@@ -128,7 +128,7 @@ export default function Home() {
                   index === 0 ? 'w-1/2 lg:w-2/5' : 'w-3/5'
                 }`}
               >
-                <div className="aspect-square w-full max-w-[15rem]">
+                <div className="aspect-square w-full max-w-60">
                   <WatchPlate variant={collection.slug} live frame={false} className="h-full w-full drop-shadow-[0_10px_30px_rgba(20,15,60,0.45)]" />
                 </div>
               </div>

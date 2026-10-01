@@ -49,7 +49,7 @@ export default function Maison() {
         <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <div>
             <Eyebrow>Fig. 04 — Case, side profile</Eyebrow>
-            <div className="mt-4 aspect-[2/1]">
+            <div className="mt-4 aspect-2/1">
               <WatchPlate variant="profile" caption={null} />
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function Maison() {
       {/* Founder quote */}
       <Reveal as="section" className="mx-auto max-w-4xl px-6 py-24 lg:py-32">
         <p className="text-h2 text-ink">“{founderQuote.quote}”</p>
-        <p className="mt-8 text-[13px] tracking-[0.1em] text-stone uppercase">
+        <p className="mt-8 text-[13px] tracking-widest text-stone uppercase">
           {founderQuote.name} — {founderQuote.role}
         </p>
       </Reveal>

@@ -21,7 +21,7 @@ export default function IridescentBackdrop({ className, scrim = true, speed = 0.
       ) : (
         <Iridescence className="h-full w-full" color={SAPPHIRE} speed={speed} amplitude={amplitude} mouseReact />
       )}
-      {scrim ? <div className="absolute inset-0 bg-[#1e1a3a]/15" /> : null}
+      {scrim ? <div className="absolute inset-0 bg-ink/15" /> : null}
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default function ProductCard({ product, className }) {
       className={cn('group block', className)}
       onMouseMove={handleMove}
     >
-      <TiltCard maxTilt={4} className="relative aspect-[4/5] overflow-hidden bg-ivory">
+      <TiltCard maxTilt={4} className="relative aspect-4/5 overflow-hidden bg-ivory">
         <div
           ref={plateRef}
           aria-hidden="true"
@@ -32,7 +32,7 @@ export default function ProductCard({ product, className }) {
         <WatchPlate
           variant={product.collection}
           frame={false}
-          className="h-full w-full transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:scale-[1.04]"
+          className="h-full w-full transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 border border-line transition-colors duration-500 group-hover:border-ink/40" />
         {product.isNew || product.limited ? (

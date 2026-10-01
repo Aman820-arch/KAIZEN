@@ -6,7 +6,7 @@ export default function PageGlow({ children }) {
   return (
     <div className="relative">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-155 overflow-hidden"
         style={{
           mixBlendMode: 'multiply',
           maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
